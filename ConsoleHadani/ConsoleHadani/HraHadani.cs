@@ -11,6 +11,23 @@ namespace ConsoleHadani
     /// </summary>
     public class HraHadani
     {
+        
+        public int DolniHranice { get; set; } = 1; //dolni hranice rozsahu cisel
+        public int HorniHranice { get; set; } = 100; //horni hranice rozsahu cisel
+
+        /// <summary>
+        /// Konstruktor s parametry pro nastaveni hranic rozsahu cisel
+        /// </summary>
+        /// <param name="dolniHranice">Dolní hranice intervalu myšlených čísel</param>
+        /// <param name="horniHranice">Horní hranice intervalu myšlených čísel</param>
+        public HraHadani(int dolniHranice, int horniHranice)
+        {
+            DolniHranice = dolniHranice;
+            HorniHranice = horniHranice;
+        }
+
+        public HraHadani() { }
+
         /// <summary>
         /// Spusti a zahraje jednu hru Hadani cisel
         /// </summary>
@@ -18,12 +35,13 @@ namespace ConsoleHadani
         {
             Console.Clear();   //smaze obrazovku
             Console.WriteLine("Vitejte ve hre Hadani cisel!"); //vypise uvodni zpravu
-            Console.WriteLine("Myslim si cislo od 1 do 100. Uhodni ho na co nejmene pokusu.");
+            Console.WriteLine($"Myslim si cislo od {DolniHranice} do {HorniHranice}. Uhodni ho na co nejmene pokusu."); //tzv. interpolovaný řetězec s hranicemi rozsahu
+                                                                                                                        //obsahuje promenne primo v retezci
             Random random = new Random(); //vytvori novy objekt pro generovani nahodnych cisel
             
             Vstup VlozeneCislo= new Vstup("Zadejte svuj tip: "); //vytvori novy objekt tridy Vstup s vyzvou pro uzivatele
 
-            int cislo = random.Next(1, 101);  //vygeneruje nahodne cislo mezi 1 a 100
+            int cislo = random.Next(DolniHranice, HorniHranice+1);  //vygeneruje nahodne cislo v zadanem rozsahu
             int pokus = 0;  //pocitadlo pokusu
             int tip = 0;  //uzivateluv tip
             do
