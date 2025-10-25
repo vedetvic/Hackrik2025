@@ -1,20 +1,17 @@
 ﻿//Hra hadani cisel
 //verze s rozhranim pro zobrazeni a vstup
-//zatim zobrazujeme na konzoli
+//pridano jednoduche TUI pro konzolove zobrazeni
 
-using ConsoleHadani;                //importuje jmeno prostoru ConsoleHadani, aby mohl pouzit tridy v nem definovane
+using ConsoleHadani;
 
-IZobrazovac zobrazovac = new ConsoleZobrazovac(); //vytvori novy objekt tridy ConsoleZobrazovac, ktery implementuje rozhrani IZobrazovac
-                                                  //tento objekt bude pouzit pro zobrazeni a nacteni vstupu
-                                                  //zatim se jedna o konzolovou verzi
-                                                  //diky rozhrani muzeme v budoucnu snadno zmenit implementaci zobrazovace (napr. na GUI apod.)
-                                                  //bez nutnosti menit kod hry samotne
-                                                  //to je vyhoda pouziti rozhrani
-                                                  //ConsoleZobrazovac je konkretni implementace rozhrani IZobrazovac pro konzoli
-                                                  //mohli bychom mit i jine implementace pro ruzne prostredi
-                                                  //zmenu pak udelame pouze zde, bez zmeny jinde v kodu
 
-//objekty Vstup jiz nepotrebujeme, mame zobrazovac; proto zmizely z kodu
+
+IZobrazovac zobrazovac = new TuiZobrazovac();           //vytvori novy objekt tridy TuiZobrazovac, ktery implementuje rozhrani IZobrazovac
+                                                        //tento objekt bude pouzit pro zobrazeni a nacteni vstupu
+                                                        //je to jedina zmena v programu oproti puvodni verzi
+                                                        //na tridu HraHadani jsme nijak nesahali
+
+//IZobrazovac zobrazovac = new ConsoleZobrazovac(); puvodni konzolove zobrazeni ted je nahradeno TUI
 
 
 do
@@ -26,9 +23,10 @@ do
     mojeHra.Hraj();                                 //spusti hru
 } while (zobrazovac.NactiText("Chcete hrat znovu? (a = ano, jinak ne)").ToLower() == "a"); //pokud uzivatel zada 'a', hra se spusti znovu
 
-zobrazovac.ZobrazText("Dekuji za hru! Stisknete klavesu pro ukonceni."); //vypise dekovnou zpravu pri ukonceni
+zobrazovac.ZobrazText("Dekuji za hru!"); //vypise dekovnou zpravu pri ukonceni
+                                         //tim koncime, necekame na klavesu jako v puvodni verzi
+                                         //to za nas resi TUI rozhrani
 
-Console.ReadKey(); //pocka na stisk klavesy pred ukoncenim programu
 
 
 
