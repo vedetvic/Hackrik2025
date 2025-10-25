@@ -1,21 +1,33 @@
-﻿//Hra hadani cisel - prvni objektova verze
+﻿//Hra hadani cisel
+//verze s rozhranim pro zobrazeni a vstup
+//zatim zobrazujeme na konzoli
 
 using ConsoleHadani;                //importuje jmeno prostoru ConsoleHadani, aby mohl pouzit tridy v nem definovane
 
-Vstup jesteJednou = new Vstup("Chcete hrat znovu? (a = ano, jinak ne)"); //vytvori novy objekt tridy Vstup s vyzvou pro uzivatele
-Vstup vstDolniHranice = new Vstup("Zadejte dolni hranici rozsahu cisel: "); //vytvori novy objekt tridy Vstup pro dolni hranici
-Vstup vstHorniHranice = new Vstup("Zadejte horni hranici rozsahu cisel: "); //vytvori novy objekt tridy Vstup pro horni hranici
+IZobrazovac zobrazovac = new ConsoleZobrazovac(); //vytvori novy objekt tridy ConsoleZobrazovac, ktery implementuje rozhrani IZobrazovac
+                                                  //tento objekt bude pouzit pro zobrazeni a nacteni vstupu
+                                                  //zatim se jedna o konzolovou verzi
+                                                  //diky rozhrani muzeme v budoucnu snadno zmenit implementaci zobrazovace (napr. na GUI apod.)
+                                                  //bez nutnosti menit kod hry samotne
+                                                  //to je vyhoda pouziti rozhrani
+                                                  //ConsoleZobrazovac je konkretni implementace rozhrani IZobrazovac pro konzoli
+                                                  //mohli bychom mit i jine implementace pro ruzne prostredi
+                                                  //zmenu pak udelame pouze zde, bez zmeny jinde v kodu
+
+//objekty Vstup jiz nepotrebujeme, mame zobrazovac; proto zmizely z kodu
 
 
 do
 {
 
-    HraHadani mojeHra = new HraHadani(vstDolniHranice.NactiCislo(), vstHorniHranice.NactiCislo()); //vytvori novy objekt tridy HraHadani
-                                                                                                   //s nastavením hranic rozsahu cisel
+    HraHadani mojeHra = new HraHadani(zobrazovac, zobrazovac.NactiCislo("Zadejte dolni hranici rozsahu cisel:"), zobrazovac.NactiCislo("Zadejte horni hranici rozsahu cisel:")); //vytvori novy objekt tridy HraHadani
+                                                                                                                                                                                 //s nastavením hranic rozsahu cisel
+                                                                                                                                                                                 //a s objektem zobrazovac pro zobrazeni a vstup
     mojeHra.Hraj();                                 //spusti hru
-} while (jesteJednou.NactiText().ToLower() == "a"); //pokud uzivatel zada 'a', hra se spusti znovu
+} while (zobrazovac.NactiText("Chcete hrat znovu? (a = ano, jinak ne)").ToLower() == "a"); //pokud uzivatel zada 'a', hra se spusti znovu
 
-Console.WriteLine("Dekuji za hru! Stisknete klavesu pro ukonceni."); //vypise dekovnou zpravu pri ukonceni
+zobrazovac.ZobrazText("Dekuji za hru! Stisknete klavesu pro ukonceni."); //vypise dekovnou zpravu pri ukonceni
+
 Console.ReadKey(); //pocka na stisk klavesy pred ukoncenim programu
 
 
