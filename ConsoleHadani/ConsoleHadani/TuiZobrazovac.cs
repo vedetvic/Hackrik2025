@@ -14,19 +14,19 @@ namespace ConsoleHadani
         
         public TuiZobrazovac()
         {
-            obrazovka = new Screen("Hádání čísel");
+            obrazovka = new Screen("Hadani cisel");
             obrazovka.Initialize();
         }
         public void ZobrazText(string zprava)
         {
-            MessageBox Zprava=new MessageBox("Zpráva", zprava);
+            MessageBox Zprava=new MessageBox("Zprava", zprava);
             obrazovka.AddComponent(Zprava);
             obrazovka.Run();
         }
 
         public int NactiCislo(string vyzva)
         {
-            InputBoxNumber Vstup=new InputBoxNumber("Vstup čísla", vyzva);
+            InputBoxNumber Vstup=new InputBoxNumber("Vstup cisla", vyzva);
             
             do
             {
@@ -34,7 +34,7 @@ namespace ConsoleHadani
                 obrazovka.Run();
                 if (!Vstup.InputValid)
                 {
-                    ZobrazText("Neplatný vstup. Zadejte prosím celé číslo.");
+                    ZobrazText("Neplatný vstup. Zadejte prosim cele cislo.");
                 }
             } while (!Vstup.InputValid);
             return Vstup.InputNumber;
